@@ -58,7 +58,7 @@ SQL_REGEX = {
         # FIXME(atronah): never match,
         # because `re.match` doesn't work with look-behind regexp feature
         (r'(?<=\.)[A-ZÀ-Ü]\w*', tokens.Name),  # .'Name'
-        (r'[A-ZÀ-Ü]\w*(?=\()', tokens.Name),  # side effect: change kw to func
+        (r'[A-ZÀ-Ü]\w*(?=\()', tokens.Function),  # side effect: change kw to func
         (r'-?0x[\dA-F]+', tokens.Number.Hexadecimal),
         (r'-?\d*(\.\d+)?E-?\d+', tokens.Number.Float),
         (r'-?(\d+(\.\d*)|\.\d+)', tokens.Number.Float),
