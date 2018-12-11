@@ -6,11 +6,42 @@
 # This module is part of python-sqlparse and is released under
 # the BSD License: https://opensource.org/licenses/BSD-3-Clause
 
+from logging import (
+    getLogger,
+    StreamHandler,
+    Formatter,
+    DEBUG,
+    INFO,
+    WARNING,
+    ERROR,
+    CRITICAL,
+)
 import itertools
 import re
 from collections import deque
 from contextlib import contextmanager
 from sqlparse.compat import text_type
+
+
+def get_logger(module_name: str, log_level='info'):
+    logger = getLogger(module_name)
+    handler = StreamHandler()
+    handler.setFormatter(
+        Formatter(
+            '%(asctime)s %(levelname)-8s %(module)s %(funcName)s %(message)s'
+        )
+    )
+
+    logger.addHandler(handler)
+    logger_level = {
+        'debug': DEBUG,
+        'info': INFO,
+        'warning': WARNING,
+        'error': ERROR,
+        'critical': CRITICAL
+    }
+    logger.setLevel(logger_level.get(log_level, ERROR))
+    return logger
 
 # This regular expression replaces the home-cooked parser that was here before.
 # It is much faster, but requires an extra post-processing step to get the
