@@ -158,7 +158,7 @@ class TokenList(Token):
     def _get_repr_name(self):
         return type(self).__name__
 
-    def _pprint_tree(self, max_depth: Optional[] = None, depth=0, f=None):
+    def _pprint_tree(self, max_depth: Optional[int] = None, depth=0, f=None):
         """Pretty-print the object tree."""
         indent = u' | ' * depth
         for idx, token in enumerate(self.tokens):
