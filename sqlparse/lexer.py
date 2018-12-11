@@ -14,7 +14,7 @@
 # and to allow some customizations.
 
 from sqlparse import tokens
-from sqlparse.keywords import SQL_REGEX
+from sqlparse.keywords import SQL_REGEX, is_keyword
 from sqlparse.compat import bytes_type, text_type, file_types
 from sqlparse.utils import consume
 
@@ -62,6 +62,12 @@ class Lexer(object):
 
                 if not m:
                     continue
+                elif action == tokens.Function:
+                    keyword, _ = is_keyword(m.group())
+                    if keyword == tokens.Keyword:
+                        yield action, m.group()
+                    else:
+                        yield tokens.Name, m.group()
                 elif isinstance(action, tokens._TokenType):
                     yield action, m.group()
                 elif callable(action):
