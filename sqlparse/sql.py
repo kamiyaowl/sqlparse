@@ -7,7 +7,7 @@
 # the BSD License: https://opensource.org/licenses/BSD-3-Clause
 
 """This module contains classes representing syntactical elements of SQL."""
-from __future__ import print_function
+from typing import Optional, List
 
 import re
 
@@ -25,10 +25,9 @@ class Token(object):
     the type of the token.
     """
 
-    __slots__ = ('value', 'ttype', 'parent', 'normalized', 'is_keyword',
-                 'is_group', 'is_whitespace')
+    __slots__ = ('value', 'ttype', 'parent', 'normalized', 'is_keyword', 'is_group', 'is_whitespace')
 
-    def __init__(self, ttype, value):
+    def __init__(self, ttype: T.Token, value: str):
         value = text_type(value)
         self.value = value
         self.ttype = ttype
@@ -159,7 +158,7 @@ class TokenList(Token):
     def _get_repr_name(self):
         return type(self).__name__
 
-    def _pprint_tree(self, max_depth=None, depth=0, f=None):
+    def _pprint_tree(self, max_depth: Optional[] = None, depth=0, f=None):
         """Pretty-print the object tree."""
         indent = u' | ' * depth
         for idx, token in enumerate(self.tokens):
@@ -420,7 +419,7 @@ class Statement(TokenList):
                 _, dml_keyword = self.token_next(tidx, skip_ws=True)
 
                 if dml_keyword is not None \
-                        and dml_keyword.ttype == T.Keyword.DML:
+                    and dml_keyword.ttype == T.Keyword.DML:
                     return dml_keyword.normalized
 
         # Hmm, probably invalid syntax, so return unknown.
