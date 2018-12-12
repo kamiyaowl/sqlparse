@@ -42,7 +42,6 @@ Other = Token.Other
 
 # Common token types for source code
 Keyword = Token.Keyword
-Function = Token.Function
 Name = Token.Name
 Literal = Token.Literal
 String = Literal.String
@@ -68,3 +67,4 @@ DML = Keyword.DML
 DDL = Keyword.DDL
 CTE = Keyword.CTE
 Command = Keyword.Command
+Function = Keyword.Function

@@ -62,14 +62,16 @@ class Lexer(object):
 
                 if not m:
                     continue
-                elif action == tokens.Function:
-                    keyword, _ = is_keyword(m.group())
-                    if keyword == tokens.Keyword:
-                        yield action, m.group()
-                    else:
-                        yield tokens.Name, m.group()
                 elif isinstance(action, tokens._TokenType):
-                    yield action, m.group()
+                    if action == tokens.Keyword.Function:
+                        keyword, _ = is_keyword(m.group())
+                        print(keyword)
+                        if keyword == tokens.Keyword:
+                            yield action, m.group()
+                        else:
+                            yield tokens.Name, m.group()
+                    else:
+                        yield action, m.group()
                 elif callable(action):
                     yield action(m.group())
 
