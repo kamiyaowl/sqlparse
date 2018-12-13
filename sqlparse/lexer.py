@@ -65,7 +65,6 @@ class Lexer(object):
                 elif isinstance(action, tokens._TokenType):
                     if action == tokens.Keyword.Function:
                         keyword, _ = is_keyword(m.group())
-                        print(keyword)
                         if keyword == tokens.Keyword:
                             yield action, m.group()
                         else:
